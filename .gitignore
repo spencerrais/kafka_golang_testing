@@ -25,4 +25,5 @@ go.work.sum
 *.pdf
 
 # log files
-log/
+logs/
+*.log

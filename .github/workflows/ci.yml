@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  ci:
+    name: Build and Test
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Set up Go
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      # Install dependencies
+      - name: Install dependencies
+        run: go mod tidy
+
+      # Check if the project compiles - not needed if simple package with test coverage
+      - name: Check compilation
+        run: go build -v ./...
+
+      # Run unit tests
+      - name: Run unit tests
+        run: go test ./... -v

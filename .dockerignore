@@ -1,0 +1,39 @@
+# Go build cache and binaries
+bin/
+*.exe
+*.out
+
+# dependencies directory if using vendoring
+vendor/
+
+# Go test artifacts and files
+*.test
+test/
+
+# local environment files
+.env
+.env.*
+
+# IDE/editor-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.editorconfig
+
+# unnecessary files for Docker builds
+.github/
+.git/
+.gitignore
+Dockerfile
+docker-compose.yml
+*.log
+README.md
+
+# OS-specific files
+*.DS_Store
+Thumbs.db
+
+# coverage and build artifacts
+coverage/
+*.coverprofile

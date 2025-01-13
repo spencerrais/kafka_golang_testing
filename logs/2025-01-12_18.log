@@ -1,0 +1,4 @@
+2025/01/12 18:43:20 {"level":"INFO","message":"Starting consumer"}
+2025/01/12 18:43:24 {"level":"FATAL","message":"User login consumer error: %v"}
+2025/01/12 18:46:12 {"level":"INFO","message":"Starting consumer"}
+2025/01/12 18:46:13 {"level":"FATAL","message":"User login consumer error: dial tcp: lookup kafka: no such host"}

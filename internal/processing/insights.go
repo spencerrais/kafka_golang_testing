@@ -18,6 +18,7 @@ func generateUserLoginInsights() map[string]interface{} {
 		"app_version_percentages": map[string]float64{},
 		"unique_users":            len(uniqueUsers),
 		"total_logins":            totalLogins,
+		"timestamp":               time.Now().Unix(),
 	}
 
 	// Avoid division by zero

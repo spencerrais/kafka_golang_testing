@@ -33,31 +33,31 @@ All pushes to the repository run through a simple CI pipeline which both runs a 
 The Golang application is modularly designed for scalability, maintainability, and reusability. Below is a breakdown of the key components:
 
 1. **`cmd/consumer/main.go`**:
-   - Entry point for the application.
-   - Initializes configuration, logger, Kafka consumer(s), and Kafka producer(s).
-   - Starts the consumer to process messages and producer to publish insights.
+  - Entry point for the application.
+  - Initializes configuration, logger, Kafka consumer(s), and Kafka producer(s).
+  - Starts the consumer to process messages and producer to publish insights.
 
 2. **`internal/config`**:
-   - Manages configuration by reading environment variables for Kafka brokers, topics, and group IDs.
-   - Provides sensible defaults for local development.
-   - Centralizes all configuration logic to ensure consistency across the application.
+  - Manages configuration by reading environment variables for Kafka brokers, topics, and group IDs.
+  - Provides sensible defaults for local development.
+  - Centralizes all configuration logic to ensure consistency across the application.
 
 3. **`internal/kafka`**:
-   - **Consumer**: A reusable template for subscribing to topics (e.g., `user-login`) and processing messages with fault tolerance. Delegates the actual processing to a custom handler.
-   - **Producer**: A generic implementation for publishing messages to topics (e.g., `processed-login`) with reliable delivery.
+  - **Consumer**: A reusable template for subscribing to topics (e.g., `user-login`) and processing messages with fault tolerance. Delegates the actual processing to a custom handler.
+  - **Producer**: A generic implementation for publishing messages to topics (e.g., `processed-login`) with reliable delivery.
 
 4. **`internal/logger`**:
-   - Centralized logging outputs logs to both the console and JSON-formatted files.
-   - Ensures traceability and structured debugging, making it easier to monitor and troubleshoot the application.
+  - Centralized logging outputs logs to both the console and JSON-formatted files.
+  - Ensures traceability and structured debugging, making it easier to monitor and troubleshoot the application.
 
 5. **`internal/processing`**:
-   - Contains all business logic for processing messages.
-   - Decouples domain-specific logic from Kafka-related operations to simplify testing and future extensions.
+  - Contains all business logic for processing messages.
+  - Decouples domain-specific logic from Kafka-related operations to simplify testing and future extensions.
 
 6. **`internal/models`**:
-   - Defines the structure of the messages exchanged between Kafka topics.
-   - Provides reusable data mappings and models, ensuring consistency and type safety throughout the application.
-   - Example:
+  - Defines the structure of the messages exchanged between Kafka topics.
+  - Provides reusable data mappings and models, ensuring consistency and type safety throughout the application.
+  - Example:
      ```go
      type UserLogin struct {
          UserID      string `json:"user_id"`
@@ -126,35 +126,35 @@ This design ensures a clean and modular architecture, ready for real-world scali
 ### How to deploy this application in production
 
 1. Container Orchestration:
-    - Utilize Kubernetes to deploy and orchestrate all containers.
-    - Enable horizontal scaling.
+  - Utilize Kubernetes to deploy and orchestrate all containers.
+  - Enable horizontal scaling.
 2. Secret Management:
-    - Manage all secrets and environment variables via an external system.
+  - Manage all secrets and environment variables via an external system.
 3. Monitoring:
-    - Regularly push the log files being created in `logs/` to cloud storage.
-    - Integrate a log monitoring tool to examine logs and application metrics.
+  - Regularly push the log files being created in `logs/` to cloud storage.
+  - Integrate a log monitoring tool to examine logs and application metrics.
 4. Deployment:
-    - Create a CD pipeline using GitHub Actions.
-    - Create tests as needed.
+  - Create a CD pipeline using GitHub Actions.
+  - Create tests as needed.
 5. Security:
-    - Ensure that the principle of least access is followed, for everyone.
+  - Ensure that the principle of least access is followed, for everyone.
 
 ### Other components to add
 
 1. Channel for Failed Messages:
-- Create a Dead Letter Queue for all messages which cannot be processed.
-1. Utilize Schemas and Validation:
-- Enforce data quality throughout the system.
-1. Anticipate High Traffic
-- Utilize both rate limiting and load balancing with mutiple producers and consumers.
+  - Create a Dead Letter Queue for all messages which cannot be processed.
+2. Utilize Schemas and Validation:
+  - Enforce data quality throughout the system.
+3. Anticipate High Traffic
+  - Utilize both rate limiting and load balancing with mutiple producers and consumers.
 
 ### Scaling Options
 
 1. Kafka Topics:
-- Split the data into more topics
-1. Horizontally Scale:
-- Create more producers and consumers to handle the increased load along with Kafka Partitioning.
-1. Process Messages More Efficiently:
-- Perform aggregation where possible
-- Drop Data that is not needed.
-- Batch Data together if SLAs allow.
+  - Split the data into more topics
+2. Horizontally Scale:
+  - Create more producers and consumers to handle the increased load along with Kafka Partitioning.
+3. Process Messages More Efficiently:
+  - Perform aggregation where possible
+  - Drop Data that is not needed.
+  - Batch Data together if SLAs allow.

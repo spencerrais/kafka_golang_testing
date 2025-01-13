@@ -11,7 +11,7 @@ All pushes to the repository run through a simple CI pipeline which both runs a 
 - **Kafka-Based Real-Time Processing**:
   - Consumes `user-login` events from Kafka.
   - Generates insights, including device usage percentages, app version percentages, and unique user counts.
-  - Publishes processed insights to a Kafka output topic every minute for the time that has elapsed since the last message.
+  - Publishes processed insights to a Kafka output topic every minute for the time that has elapsed since the last published message.
 
 - **Components**:
   - **Kafka & Zookeeper**: Message broker and coordination service.
@@ -23,7 +23,7 @@ All pushes to the repository run through a simple CI pipeline which both runs a 
 - **Scalable and Fault Tolerant**:
   - Kafka’s partitioning allows parallelism and scalability.
   - Docker ensures containerized deployments with fault recovery.
-  - Golang is highly efficient, with built-in fault tolerance mechanisms.
+  - Golang is highly efficient, with built-in fault tolerance mechanisms and a sharable executable.
   - GitHub Actions and CI are utilized to ensure that production won't break.
 
 ---

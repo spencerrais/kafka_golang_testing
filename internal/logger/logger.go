@@ -75,7 +75,9 @@ func (g *GlobalLogger) Log(level, message string) {
 	currentHour := time.Now().Format("2006-01-02_15")
 	logFileHour := filepath.Base(g.file.Name())
 	if logFileHour != fmt.Sprintf("%s.log", currentHour) {
-		g.updateLogFile()
+		if err := g.updateLogFile(); err != nil {
+			fmt.Fprintf(os.Stderr, "Failed to update log file: %v", err)
+		}
 	}
 
 	// Create a JSON log entry
